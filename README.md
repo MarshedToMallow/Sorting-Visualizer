@@ -7,12 +7,12 @@ My own implementation of a visualizer for various sorting algorithms
 ## Well-Known Sorts
 
 ### Implementation Progress
-- [ ] Bubble Sort
-- [ ] Selection Sort
-- [ ] Insertion Sort
-- [ ] Merge Sort
-- [ ] Heapsort
-- [ ] Introsort
-- [ ] Quicksort
-- [ ] Radix Sort
-- [ ] Bogosort
+- [ ] [Bubble Sort](https://en.wikipedia.org/wiki/Bubble_sort)
+- [ ] [Selection Sort](https://en.wikipedia.org/wiki/Selection_sort)
+- [ ] [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
+- [ ] [Merge Sort](https://en.wikipedia.org/wiki/Merge_sort)
+- [ ] [Heapsort](https://en.wikipedia.org/wiki/Heapsort)
+- [ ] [Introsort](https://en.wikipedia.org/wiki/Introsort)
+- [ ] [Quicksort](https://en.wikipedia.org/wiki/Quicksort)
+- [ ] [Radix Sort (LSD)](https://en.wikipedia.org/wiki/Radix_sort#Least_significant_digit)
+- [ ] [Bogosort](https://en.wikipedia.org/wiki/Bogosort)

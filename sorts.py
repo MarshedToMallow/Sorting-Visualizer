@@ -1,4 +1,65 @@
 import random
+import copy
+
+class Sortable:
+    """Sortable - Manages the instructions produced by a Sort.
+    """
+    def __init__(self, sortable, colors = {"Read":(255, 0, 0), "Write":(64, 64, 255), "Set":(255, 255, 255), "Swap":(64, 64, 255), "Compare":(255, 255, 0)}):
+        self.sortable = sortable
+        self.colors = colors
+        self.is_integer = all([type(i) is int for i in sortable])
+    
+    def run_steps(self, sort, debug = False):
+
+        sortable = copy.deepcopy(self.sortable)
+
+        for instruction in sort.get_steps(self.sortable):
+            args = instruction.split(" ")
+            count = instruction.count(" ")
+
+            if args[0] == "Set":
+                new_sortable = "".join(args[1:])[1:-1].split(",")
+                new_sortable = [self.str_to_num(i) for i in new_sortable]
+            elif count == 1:a = int(args[1][1:])
+            elif count == 2:
+                a = int(args[1][1:])
+                b = args[2]
+                if b[0] == "$":b = int(b[1:])
+                else:b = self.str_to_num(b)
+
+            # yield (instruction_type, affected_indices, color, sortable, is_sortable_changed)
+
+            if args[0] == "Read":
+                if debug:print(f"Sortable[{a}] ({sortable[a]})")
+                yield ("Read", set((a,)), self.colors["Read"], sortable, False)
+
+            elif args[0] == "Write":
+                sortable[a] = b
+                if debug:print(f"Sortable[{a}] <- {b}")
+                yield ("Write", set((a,)), self.colors["Write"], sortable, True)
+
+            elif args[0] == "Swap":
+                sortable[a], sortable[b] = sortable[b], sortable[a]
+                if debug:print(f"Sortable[{b}] ({sortable[b]}) <-> Sortable[{a}] ({sortable[a]})")
+                yield ("Swap", set((a, b)), self.colors["Swap"], sortable, True)
+
+            elif args[0] == "Set":
+                sortable = new_sortable.copy()
+                if debug:print(f"Sortable <- {new_sortable}")
+                yield ("Set", None, self.colors["Set"], sortable, True)
+
+            elif args[0] == "Compare":
+                if debug:print(f"Sortable[{a}] ({sortable[a]}) vs Sortable[{b}] ({sortable[b]})")
+                yield ("Compare", set((a, b)), self.colors["Compare"], sortable, False)
+
+            elif args[0] == "Done":
+                if debug:print(f"Done | {sortable}")
+                yield ("Done", None, None, sortable, False)
+        
+        print(sortable)
+    
+    def str_to_num(self, string):
+        return int(string) if self.is_integer else float(string)
 
 class Sort:
     def __init__(self):
@@ -7,7 +68,6 @@ class Sort:
     def get_steps(self, input_list):
         pass
 
-
 # ---Instructions---
 # Read $a - Read the value at index a
 # Write $a b - Write b to index a
@@ -15,6 +75,8 @@ class Sort:
 # Set a - Set the sortable to the new sortable a
 # Compare $a $b - Compare the values at index a and index b
 # Done - Sorting is done
+
+DEBUG = False
 
 class BubbleSort(Sort):
     """Bubble Sort - Iterates over all elements, swapping them if the first element is larger than the second.
@@ -41,7 +103,7 @@ class BubbleSort(Sort):
                 yield "Done"
                 break
         
-        print(sortable)
+        if DEBUG:print(sortable)
 
 class InsertionSort(Sort):
     """Insertion Sort - Sorts by moving individual element to the correct position in the already sorted portion, starting with just the first element.
@@ -78,7 +140,7 @@ class InsertionSort(Sort):
                 yield f"Swap ${a} ${b}"
                 sortable[a], sortable[b] = sortable[b], sortable[a]
         yield "Done"
-        #print(sortable)
+        if DEBUG:print(sortable)
 
 class SelectionSort(Sort):
     """Selection Sort - Sorts by moving the smallest element in the unsorted portion to the end of the sorted portion.
@@ -106,7 +168,7 @@ class SelectionSort(Sort):
             sortable[index], sortable[minimum[1]] = sortable[minimum[1]], sortable[index]
         
         yield "Done"
-        #print(sortable)
+        if DEBUG:print(sortable)
 
 class MergeSort(Sort):
     """Merge Sort - Sorts by merging adjacent sorted portions.
@@ -180,6 +242,18 @@ class MergeSort(Sort):
             index <<= 1
         return index >> 1
 
+class Quicksort(Sort):
+    """Quicksort - Selects a random element and puts all elements on one side if they're larger and the other side if they're smaller.
+    This is repeated recursively on the unsorted portions."""
+    def __init__(self):
+        super().__init__()
+    
+    def get_steps(self, sortable):
+        pass
+
+    def get_pivot(self, sortable_length):
+        return random.randint(0, sortable_length - 1)
+
 class Bogosort(Sort):
     """Bogosort - Sorts by shuffling the sortable until it is sorted.
     """
@@ -211,20 +285,23 @@ class Bogosort(Sort):
             # If it isn't sorted, randomize it
             random.shuffle(sortable)
             yield f"Set {sortable}"
-        print(sortable)
+        if DEBUG:print(sortable)
 
 if __name__ == "__main__":
     # Sortable to be sorted
-    sortable = list(range(6))
-    random.shuffle(sortable)
-    print(sortable)
+    s = list(range(512))
+    random.shuffle(s)
+    sortable = Sortable(s)
+    print(sortable.sortable)
 
     # Sort object
     #print(BubbleSort.__doc__)
-    sort = BubbleSort()
+    sort = MergeSort()
 
     # Sorting
-    sorting = sort.get_steps(sortable)
-    steps = [step for step in sorting]
+    sorting = sortable.run_steps(sort)
+    steps = []
+    for i in sorting:
+        steps.append(i)
     print("Steps:", len(steps))
-    #for i in steps:pass
+    print("Modifying Steps:", len([i for i in steps if i[-1]]))

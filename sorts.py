@@ -16,6 +16,32 @@ class Sort:
 # Compare $a $b - Compare the values at index a and index b
 # Done - Sorting is done
 
+class BubbleSort(Sort):
+    """Bubble Sort - Iterates over all elements, swapping them if the first element is larger than the second.
+    """
+    def __init__(self):
+        super().__init__()
+    
+    def get_steps(self, sortable):
+
+        while True:
+            is_sorted = True
+
+            for index in range(len(sortable) - 1):
+                yield f"Read ${index}"
+                yield f"Read ${index + 1}"
+                yield f"Compare ${index} ${index + 1}"
+
+                if sortable[index] > sortable[index + 1]:
+                    yield f"Swap ${index} ${index + 1}"
+                    is_sorted = False
+                    sortable[index], sortable[index + 1] = sortable[index + 1], sortable[index]
+
+            if is_sorted:
+                yield "Done"
+                break
+        
+        print(sortable)
 
 class InsertionSort(Sort):
     """Insertion Sort - Sorts by moving individual element to the correct position in the already sorted portion, starting with just the first element.
@@ -194,10 +220,11 @@ if __name__ == "__main__":
     print(sortable)
 
     # Sort object
-    print(MergeSort.__doc__)
-    sort = MergeSort()
+    #print(BubbleSort.__doc__)
+    sort = BubbleSort()
 
     # Sorting
-    steps = sort.get_steps(sortable)
-    #print(len([i for i in steps]))
-    for i in steps:pass
+    sorting = sort.get_steps(sortable)
+    steps = [step for step in sorting]
+    print("Steps:", len(steps))
+    #for i in steps:pass

@@ -12,7 +12,7 @@ My own implementation of a sorting algorithm visualizer for various sorting algo
 
 - [ ] [Bubble Sort](https://en.wikipedia.org/wiki/Bubble_sort)
 - [ ] [Selection Sort](https://en.wikipedia.org/wiki/Selection_sort)
-- [ ] [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
+- [x] [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
 - [ ] [Merge Sort](https://en.wikipedia.org/wiki/Merge_sort)
 - [ ] [Heapsort](https://en.wikipedia.org/wiki/Heapsort)
 - [ ] [Introsort](https://en.wikipedia.org/wiki/Introsort)

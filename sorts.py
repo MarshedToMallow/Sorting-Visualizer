@@ -51,7 +51,7 @@ class SelectionSort(Sort):
     
     def get_steps(self, sortable):
 
-        for index in range(len(sortable)):
+        for index in range(len(sortable) - 1):
             yield f"Read {index}"
             minimum = sortable[index], index
 

@@ -41,6 +41,34 @@ class InsertionSort(Sort):
 
                 yield f"Swap {a} {b}"
                 sortable[a], sortable[b] = sortable[b], sortable[a]
+        yield "Done"
+
+class SelectionSort(Sort):
+    """Selection Sort - Sorts by moving the smallest element in the unsorted portion to the end of the sorted portion.
+    """
+    def __init__(self):
+        super().__init__()
+    
+    def get_steps(self, sortable):
+
+        for index in range(len(sortable)):
+            yield f"Read {index}"
+            minimum = sortable[index], index
+
+            # Find the minimum element in the unsorted section of the sortable
+            for unsorted_index in range(index + 1, len(sortable)):
+                yield f"Read {unsorted_index}"
+                yield f"Compare {minimum[1]} {unsorted_index}"
+                
+                current = sortable[unsorted_index]
+                if minimum[0] > current:minimum = current, unsorted_index
+
+            # Place the minimum unsorted element at the end of the sorted section
+            if index == minimum[1]:continue
+            yield f"Swap {index} {minimum[1]}"
+            sortable[index], sortable[minimum[1]] = sortable[minimum[1]], sortable[index]
+        
+        yield "Done"
         print(sortable)
 
 class Bogosort(Sort):
@@ -76,17 +104,15 @@ class Bogosort(Sort):
             yield f"Set {sortable}"
 
 if __name__ == "__main__":
-    """
-    print(Bogosort.__doc__)
-    sort = Bogosort()
-    for i in sort.get_steps([i for i in range(1, 10)] + [0]):
-        print(i)
-    """
-
-    print(InsertionSort.__doc__)
-    sort = InsertionSort()
-    sortable = list(range(4))
+    # Sortable to be sorted
+    sortable = list(range(6))
     random.shuffle(sortable)
     print(sortable)
+
+    # Sort object
+    print(SelectionSort.__doc__)
+    sort = SelectionSort()
+
+    # Sorting
     steps = sort.get_steps(sortable)
     print(len([i for i in steps]))

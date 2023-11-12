@@ -1,12 +1,15 @@
 # Sorting Algorithm Visualizer
 
-My own implementation of a visualizer for various sorting algorithms
+My own implementation of a sorting algorithm visualizer for various sorting algorithms.
 
 # Algorithms
 
 ## Well-Known Sorts
 
 ### Implementation Progress
+
+**Algorithms**
+
 - [ ] [Bubble Sort](https://en.wikipedia.org/wiki/Bubble_sort)
 - [ ] [Selection Sort](https://en.wikipedia.org/wiki/Selection_sort)
 - [ ] [Insertion Sort](https://en.wikipedia.org/wiki/Insertion_sort)
@@ -15,4 +18,10 @@ My own implementation of a visualizer for various sorting algorithms
 - [ ] [Introsort](https://en.wikipedia.org/wiki/Introsort)
 - [ ] [Quicksort](https://en.wikipedia.org/wiki/Quicksort)
 - [ ] [Radix Sort (LSD)](https://en.wikipedia.org/wiki/Radix_sort#Least_significant_digit)
-- [ ] [Bogosort](https://en.wikipedia.org/wiki/Bogosort)
+- [x] [Bogosort](https://en.wikipedia.org/wiki/Bogosort)
+
+**Visualizer**
+
+- [ ] Visualizer
+- [ ] Colored Changes
+- [ ] Operation Stats

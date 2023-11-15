@@ -6,8 +6,8 @@ DEBUG = False
 class Sortable:
     """Sortable - Manages the instructions produced by a Sort.
     """
-    def __init__(self, sortable: list, colors: dict = {"Read":(255, 0, 0), "Write":(64, 64, 255), "Set":(255, 255, 255), "Swap":(64, 64, 255), "Compare":(255, 255, 0)}):
-        self.data = sortable
+    def __init__(self, data: list, colors: dict = {"Read":(255, 0, 0), "Write":(64, 64, 255), "Set":(255, 255, 255), "Swap":(64, 64, 255), "Compare":(255, 255, 0)}):
+        self.data = data
         self.is_sorted: bool = False
 
         self.colors = colors
@@ -15,6 +15,10 @@ class Sortable:
 
         self.steps: int = 0
         self.modifying_steps: int = 0
+    
+    def generate_random(data, *args, **kwargs):
+        random.shuffle(data)
+        return Sortable(data, *args, **kwargs)
     
     def read(self, index):
         self.colored = [(index, self.colors["Read"])]

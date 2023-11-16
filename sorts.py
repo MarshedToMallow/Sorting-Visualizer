@@ -39,12 +39,6 @@ class Sortable:
         self.data[index] = value
         return self.data
     
-    def writes(self, start_index, values):
-        for offset in range(len(values)):
-            self.write(start_index + offset, values[offset])
-        
-        return self.data
-    
     def swap(self, index_a, index_b):
         self.colored = [(index_a, self.colors["Swap"]), (index_b, self.colors["Swap"])]
         self.steps += 1
@@ -54,6 +48,7 @@ class Sortable:
         return self.data
     
     def set(self, new_sortable):
+
         self.colored = [("Set", self.colors["Set"])]
         self.steps += 1
         self.modifying_steps += 1
@@ -82,14 +77,6 @@ class Sort:
 
     def get_steps(self, input_list):
         pass
-
-# ---Instructions---
-# Read $a - Read the value at index a
-# Write $a b - Write b to index a
-# Swap $a $b - Swap the values at index a and index b
-# Set a - Set the sortable to the new sortable a
-# Compare $a $b - Compare the values at index a and index b
-# Done - Sorting is done
 
 class BubbleSort(Sort):
     """Bubble Sort - Iterates over all elements, swapping them if the first element is larger than the second.
@@ -224,7 +211,8 @@ class MergeSort(Sort):
                     auxiliary.append(big[big_index])
                     big_index += 1
             
-            yield sortable.writes(start_index, auxiliary)
+            for offset, value in enumerate(auxiliary):
+                yield sortable.write(start_index + offset, value)
 
     def get_split(self, sortable_length):
         index = 1
@@ -232,16 +220,16 @@ class MergeSort(Sort):
         return index >> 1
 
 class Quicksort(Sort):
-    """Quicksort - Selects a random element and puts all elements on one side if they're larger and the other side if they're smaller.
+    """Quicksort - Selects a random element and puts all elements on one side if they're smaller and the other side if they're larger.
     This is repeated recursively on the unsorted portions."""
     def __init__(self):
         super().__init__()
     
-    def run(self, sortable: Sortable):
-        pass
-
-    def get_pivot(self, sortable_length):
-        return random.randint(0, sortable_length - 1)
+    def run(self, sortable: Sortable, start_index: int = 0, end_index: int = None):
+        if end_index is None:end_index: int = len(sortable.data)
+        if len(sortable.data[start_index:end_index]) == 1:pass
+        else:
+            pivot = random.randint(start_index, end_index)
 
 class Bogosort(Sort):
     """Bogosort - Sorts by shuffling the sortable until it is sorted.

@@ -1,6 +1,6 @@
 import sorts
 from handler import VisualHandler
-from config import WINDOW_SIZE, SORT
+from config import WINDOW_SIZE, SORT, SPEED
 import pygame as pg
 pg.init()
 
@@ -28,5 +28,5 @@ while True:
     if not run:break
 
     handler.update(display)
-    #clock.tick(60) # Steps per second
+    clock.tick(SPEED) # Steps per second
 pg.quit()

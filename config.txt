@@ -1,6 +1,19 @@
-ELEMENTS: int = 512
+
+Should work with any value 2+
+ELEMENTS: int = 1024
+
+Should work with any values 1+ but I wouldn't recommend anything below around 100, 100
 WINDOW_SIZE: tuple[int] = 1200, 800
+
+Normal RGB color from 0 to 255
 FILL_COLOR: tuple[int] = 0, 0, 0
+
+0.0 to 1.0
 CANVAS_WIDTH: tuple[float] = 0.1, 0.9
 CANVAS_HEIGHT: tuple[float] = 0.2, 0.95
-SORT: sort = merge
+
+The specific type of sort used
+SORT: sort = quick
+
+Target FPS, -1 seems to disable the limit
+SPEED: int = -1

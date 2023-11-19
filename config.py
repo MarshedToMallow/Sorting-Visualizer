@@ -5,6 +5,7 @@ sort_options = (
     ("insertion", sorts.InsertionSort),
     ("selection", sorts.SelectionSort),
     ("merge", sorts.MergeSort),
+    ("quick", sorts.Quicksort),
     ("bogo", sorts.Bogosort)
 )
 
@@ -16,7 +17,6 @@ for line in data:
     if not "=" in line:continue
     var, value = line.split("=")
     name, type_ = var.split(":")
-    print(name, type_, value)
     if type_ == "int":config_data[name] = int(value)
     elif type_.startswith("tuple"):
         if "int" in type_:config_data[name] = tuple([int(i) for i in value.split(",")])
@@ -38,3 +38,4 @@ bar_width = SORTING_AREA_WIDTH / ELEMENTS # Average width per bar
 filled_height = SORTING_AREA_HEIGHT / ELEMENTS # Height within the sorting area
 
 SORT = config_data["SORT"]
+SPEED = config_data["SPEED"]

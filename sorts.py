@@ -12,8 +12,12 @@ class Sortable:
         self.colors = colors
         self.colored: list = []
 
-        self.steps: int = 0
-        self.modifying_steps: int = 0
+        self.comparison_count = 0
+        self.write_count = 0
+        self.swap_count = 0
+        self.read_count = 0
+
+        self.aux_write_count = 0
     
     def generate_random(data, *args, **kwargs):
         random.shuffle(data)
@@ -21,7 +25,7 @@ class Sortable:
     
     def read(self, index):
         self.colored = [(index, self.colors["Read"])]
-        self.steps += 1
+        self.read_count += 1
 
         return self.data
 
@@ -32,16 +36,14 @@ class Sortable:
     
     def write(self, index, value):
         self.colored = [(index, self.colors["Write"])]
-        self.steps += 1
-        self.modifying_steps += 1
+        self.write_count += 1
 
         self.data[index] = value
         return self.data
     
     def swap(self, index_a, index_b):
         self.colored = [(index_a, self.colors["Swap"]), (index_b, self.colors["Swap"])]
-        self.steps += 1
-        self.modifying_steps += 1
+        self.swap_count += 1
 
         self.data[index_a], self.data[index_b] = self.data[index_b], self.data[index_a]
         return self.data
@@ -49,15 +51,14 @@ class Sortable:
     def set(self, new_sortable):
 
         self.colored = [("Set", self.colors["Set"])]
-        self.steps += 1
-        self.modifying_steps += 1
+        self.write_count += len(self.data)
 
         self.data = new_sortable
         return self.data
     
     def compare(self, index_a, index_b):
         self.colored = [(index_a, self.colors["Compare"]), (index_b, self.colors["Compare"])]
-        self.steps += 1
+        self.comparison_count += 1
 
         return self.data
     
@@ -198,21 +199,25 @@ class MergeSort(Sort):
                 if small_index == len(small):
                     yield sortable.reads(split_index + big_index, split_index + len(big) - 1)
                     auxiliary += big[big_index:]
+                    sortable.aux_write_count += len(big[big_index:])
                     break
 
                 elif big_index == len(big):
                     yield sortable.reads(start_index + small_index, start_index + len(small) - 1)
                     auxiliary += small[small_index:]
+                    sortable.aux_write_count += len(small[small_index:])
                     break
 
                 elif small[small_index] <= big[big_index]:
                     yield sortable.read(start_index + small_index)
                     auxiliary.append(small[small_index])
+                    sortable.aux_write_count += 1
                     small_index += 1
 
                 else:
                     yield sortable.read(split_index + big_index)
                     auxiliary.append(big[big_index])
+                    sortable.aux_write_count += 1
                     big_index += 1
             
             for offset, value in enumerate(auxiliary):

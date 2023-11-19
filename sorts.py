@@ -6,7 +6,7 @@ DEBUG = False
 class Sortable:
     """Sortable - Manages the instructions produced by a Sort.
     """
-    def __init__(self, data: list, colors: dict = {"Read":(255, 0, 0), "Write":(64, 64, 255), "Set":(255, 255, 255), "Swap":(64, 64, 255), "Compare":(255, 255, 0)}):
+    def __init__(self, data: list, colors: dict = {"Read":(255, 0, 0), "Write":(64, 64, 255), "Set":(255, 255, 255), "Swap":(255, 64, 255), "Compare":(255, 255, 0)}):
         self.data = data
         self.is_sorted: bool = False
 
@@ -172,9 +172,14 @@ class MergeSort(Sort):
         super().__init__()
     
     def run(self, sortable: Sortable, start_index = 0, end_index = None):
+        
         if end_index is None:end_index: int = len(sortable.data)
+
+        # Base Case
         if start_index + 1 == end_index:pass
         else:
+
+            # Split into two halves, small indices and large indices
             length = end_index - start_index
             split_index = self.get_split(length) + start_index
 

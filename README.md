@@ -40,6 +40,11 @@ My own implementation of a sorting algorithm visualizer for various sorting algo
 - [x] Colored Changes
 - [ ] Operation Stats
 
+## Code
+
+- [ ] Full Comments and Docstrings
+- [ ] Code Cleanup
+
 # Custom Sorting Algorithms
 
 ## Insertion Sort (Custom - Center Search)

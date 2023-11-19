@@ -20,11 +20,11 @@ My own implementation of a sorting algorithm visualizer for various sorting algo
 ### Variants
 
 - [ ] [Insertion Sort (Binary Search)](https://en.wikipedia.org/wiki/Insertion_sort#Variants)
-- [ ] Insertion Sort (Custom - Center Search)
-- [ ] Insertion Sort (Custom - End and Center Search)
+- [ ] Insertion Sort (Center Search)***
+- [ ] Insertion Sort (End and Center Search)***
 - [x] In-Place Merge Sort
-- [ ] Quicksort (Custom - Average Pivot)
-- [ ] Quicksort (Custom - Triple Pivot)
+- [ ] Quicksort (Average Pivot)***
+- [ ] Quicksort (Triple Pivot)***
 - [ ] [Shellsort](https://en.wikipedia.org/wiki/Shellsort)*
 - [ ] [Comb Sort](https://en.wikipedia.org/wiki/Comb_sort)*
 - [ ] [Cocktail Shaker Sort](https://en.wikipedia.org/wiki/Cocktail_shaker_sort)*
@@ -34,6 +34,8 @@ My own implementation of a sorting algorithm visualizer for various sorting algo
 \* Variant of Bubble Sort
 
 \*\* Variant of Bogosort
+
+\*\*\* Special Variant
 
 ## Visualizer
 
@@ -46,7 +48,7 @@ My own implementation of a sorting algorithm visualizer for various sorting algo
 - [ ] Full Comments and Docstrings
 - [ ] Code Cleanup
 
-# Custom Sorting Algorithms
+# Special Variants
 
 ## Insertion Sort (Custom - Center Search)
 

@@ -5,7 +5,7 @@ DEBUG = False
 class Sortable:
     """Sortable - Manages the instructions produced by a Sort.
     """
-    def __init__(self, data: list, colors: dict = {"Read":(255, 0, 0), "Write":(64, 64, 255), "Set":(255, 255, 255), "Swap":(255, 64, 255), "Compare":(255, 255, 0)}):
+    def __init__(self, data: list, colors: dict = {"Read":(255, 0, 0), "Write":(64, 64, 255), "Set":(255, 255, 255), "Swap":(255, 64, 255), "Compare":(255, 128, 255)}):
         self.data = data
         self.is_sorted: bool = False
 
@@ -210,12 +210,14 @@ class MergeSort(Sort):
 
                 elif small[small_index] <= big[big_index]:
                     yield sortable.read(start_index + small_index)
+                    yield sortable.compare(start_index + small_index, split_index + big_index)
                     auxiliary.append(small[small_index])
                     sortable.aux_write_count += 1
                     small_index += 1
 
                 else:
                     yield sortable.read(split_index + big_index)
+                    yield sortable.compare(start_index + small_index, split_index + big_index)
                     auxiliary.append(big[big_index])
                     sortable.aux_write_count += 1
                     big_index += 1
@@ -266,7 +268,7 @@ class InPlaceMergeSort(Sort):
 
             for _ in range(start_index, end_index + 1):
 
-                sortable.read(left_index)
+                yield sortable.read(left_index)
                 left = sortable.data[left_index]
 
                 if read_right:
@@ -274,6 +276,7 @@ class InPlaceMergeSort(Sort):
                     right = sortable.data[right_index]
                     read_right = False
                 
+                sortable.compare(left_index, right_index)
                 if right < left:
                     for dx in range(right_index - left_index):
                         yield sortable.swap(right_index - dx, right_index - dx - 1)
@@ -312,11 +315,13 @@ class Quicksort(Sort):
 
                 if not found_left:
                     yield sortable.read(item_from_left)
+                    yield sortable.compare(item_from_left, pivot_index)
                     if sortable.data[item_from_left] > pivot:found_left = True
                     else:item_from_left += 1
 
                 if not found_right:
                     yield sortable.read(item_from_right)
+                    yield sortable.compare(item_from_right, pivot_index)
                     if sortable.data[item_from_right] < pivot:found_right = True
                     else:item_from_right -= 1
 

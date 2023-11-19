@@ -41,7 +41,7 @@ My own implementation of a sorting algorithm visualizer for various sorting algo
 
 - [x] Basic Visualizer
 - [x] Colored Changes
-- [ ] Operation Stats
+- [x] Operation Stats
 
 ## Code
 

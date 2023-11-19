@@ -39,8 +39,20 @@ class VisualHandler:
         element_count_text = self.font.render(f"{ELEMENTS} Element List", True, (255, 255, 255))
         display.blit(element_count_text, (25, 25))
 
-        timestep_text = self.font.render(f"Timestep: {self.sortable.steps}", True, (255, 255, 255))
+        timestep_text = self.font.render(f"Reads: {self.sortable.read_count}", True, (255, 255, 255))
         display.blit(timestep_text, (25, 50))
+
+        timestep_text = self.font.render(f"Comparisons: {self.sortable.comparison_count}", True, (255, 255, 255))
+        display.blit(timestep_text, (25, 75))
+
+        timestep_text = self.font.render(f"Swaps: {self.sortable.swap_count}", True, (255, 255, 255))
+        display.blit(timestep_text, (250, 25))
+
+        timestep_text = self.font.render(f"Main Array Writes: {self.sortable.write_count}", True, (255, 255, 255))
+        display.blit(timestep_text, (250, 50))
+
+        timestep_text = self.font.render(f"Auxiliary Array Writes: {self.sortable.aux_write_count}", True, (255, 255, 255))
+        display.blit(timestep_text, (250, 75))
 
         # Render each bar
         for position, value in enumerate(self.sortable.data):

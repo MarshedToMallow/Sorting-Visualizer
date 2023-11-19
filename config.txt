@@ -1,6 +1,6 @@
 
 Should work with any value 2+
-ELEMENTS: int = 128
+ELEMENTS: int = 256
 
 Should work with any values 1+ but I wouldn't recommend anything below around 100, 100
 WINDOW_SIZE: tuple[int] = 1200, 800
@@ -13,7 +13,7 @@ CANVAS_WIDTH: tuple[float] = 0.1, 0.9
 CANVAS_HEIGHT: tuple[float] = 0.2, 0.95
 
 The specific type of sort used
-SORT: sort = inplacemerge
+SORT: sort = quick
 
 Target FPS, -1 seems to disable the limit
 SPEED: int = -1

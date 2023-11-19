@@ -13,7 +13,7 @@ My own implementation of a sorting algorithm visualizer for various sorting algo
 - [ ] [Heapsort](https://en.wikipedia.org/wiki/Heapsort)
 - [ ] [Introsort](https://en.wikipedia.org/wiki/Introsort)
 - [ ] [Timsort](https://en.wikipedia.org/wiki/Timsort)
-- [ ] [Quicksort](https://en.wikipedia.org/wiki/Quicksort)
+- [x] [Quicksort](https://en.wikipedia.org/wiki/Quicksort)
 - [ ] [Radix Sort (LSD)](https://en.wikipedia.org/wiki/Radix_sort#Least_significant_digit)
 - [x] [Bogosort](https://en.wikipedia.org/wiki/Bogosort)
 

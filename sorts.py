@@ -231,10 +231,50 @@ class Quicksort(Sort):
         super().__init__()
     
     def run(self, sortable: Sortable, start_index: int = 0, end_index: int = None):
-        if end_index is None:end_index: int = len(sortable.data)
-        if len(sortable.data[start_index:end_index]) == 1:pass
+        if end_index is None:end_index: int = len(sortable.data) - 1
+
+        if start_index >= end_index:pass
         else:
-            pivot = random.randint(start_index, end_index)
+            pivot_index = random.randint(start_index, end_index)
+            yield sortable.read(pivot_index)
+            pivot = sortable.data[pivot_index]
+
+            if end_index != pivot_index:
+                yield sortable.read(end_index)
+                yield sortable.swap(pivot_index, end_index)
+
+            item_from_left = start_index
+            item_from_right = end_index - 1
+
+            found_left = False
+            found_right = False
+            while item_from_left <= item_from_right:
+
+                if not found_left:
+                    yield sortable.read(item_from_left)
+                    if sortable.data[item_from_left] > pivot:found_left = True
+                    else:item_from_left += 1
+
+                if not found_right:
+                    yield sortable.read(item_from_right)
+                    if sortable.data[item_from_right] < pivot:found_right = True
+                    else:item_from_right -= 1
+
+                if found_left and found_right:
+                    yield sortable.swap(item_from_left, item_from_right)
+                    found_left = False
+                    found_right = False
+                    item_from_left += 1
+                    item_from_right -= 1
+            
+            if item_from_left != end_index:
+                yield sortable.swap(item_from_left, end_index)
+
+            for i in self.run(sortable, start_index, item_from_left - 1):
+                yield i
+                
+            for i in self.run(sortable, item_from_left + 1, end_index):
+                yield i
 
 class Bogosort(Sort):
     """Bogosort - Sorts by shuffling the sortable until it is sorted.
@@ -277,7 +317,7 @@ if __name__ == "__main__":
     print(sortable.data)
 
     # Sort object
-    sort = MergeSort()
+    sort = Quicksort()
 
     # Sorting
     print("Starting sort of", len(s), "elements")

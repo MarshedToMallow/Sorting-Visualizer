@@ -13,7 +13,6 @@ with open("config.txt") as f:
 
 config_data = {}
 for line in data:
-    print(line)
     if not "=" in line:continue
     var, value = line.split("=")
     name, type_ = var.split(":")

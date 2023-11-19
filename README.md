@@ -62,3 +62,4 @@ Rather than choosing an entirely random element, all elements are averaged and t
 ## Quicksort (Custom - Triple Pivot)
 
 Rather than a single random pivot, three random elements are picked and the element between the other two is then selected as the pivot.
+The intention is to get an element which is likely closer to the median.

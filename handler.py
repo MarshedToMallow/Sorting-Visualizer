@@ -1,13 +1,7 @@
 import pygame as pg
 import sorts
 
-ELEMENTS = 2048 # Number of elements in Sortable
-WINDOW_SIZE = 1200, 800 # Window size
-FILL_COLOR = 0, 0, 0 # Background color
-SORTING_AREA = (0.1, 0.9), (0.2, 0.95) # Area for the sorting bars (Values from 0 to 1, minimum to maximum)
-
-bar_width = (WINDOW_SIZE[0] * (SORTING_AREA[0][1] - SORTING_AREA[0][0])) / ELEMENTS # Average width per bar
-filled_height = (WINDOW_SIZE[1] * (SORTING_AREA[1][1] - SORTING_AREA[1][0])) / ELEMENTS # Height within the sorting area
+from config import ELEMENTS, CANVAS_WIDTH, CANVAS_HEIGHT, WINDOW_SIZE, bar_width, filled_height
 
 class VisualHandler:
     """Handles the sorting rendering.
@@ -56,8 +50,8 @@ class VisualHandler:
             color = (0, 255, 0) if step is None else color
 
             # Bar coordinates (Top Left)
-            x = (bar_width * position) + (SORTING_AREA[0][0] * WINDOW_SIZE[0])
-            y = (WINDOW_SIZE[1] * SORTING_AREA[1][1]) - (filled_height * value)
+            x = (bar_width * position) + (CANVAS_WIDTH[0] * WINDOW_SIZE[0])
+            y = (WINDOW_SIZE[1] * CANVAS_HEIGHT[1]) - (filled_height * value)
 
             # Bar size
             width = bar_width + 1

@@ -1,9 +1,10 @@
 import sorts
-from handler import VisualHandler, WINDOW_SIZE
+from handler import VisualHandler
+from config import WINDOW_SIZE, SORT
 import pygame as pg
 pg.init()
 
-handler = VisualHandler(sorts.BubbleSort())
+handler = VisualHandler(SORT())
 
 # Pygame Initializing
 display = pg.display.set_mode(WINDOW_SIZE)

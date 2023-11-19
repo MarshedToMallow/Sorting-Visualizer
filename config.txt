@@ -1,0 +1,6 @@
+ELEMENTS: int = 512
+WINDOW_SIZE: tuple[int] = 1200, 800
+FILL_COLOR: tuple[int] = 0, 0, 0
+CANVAS_WIDTH: tuple[float] = 0.1, 0.9
+CANVAS_HEIGHT: tuple[float] = 0.2, 0.95
+SORT: sort = merge

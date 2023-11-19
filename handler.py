@@ -66,3 +66,9 @@ class VisualHandler:
         self.new = True
         self.sortable = sorts.Sortable.generate_random(list(range(1, ELEMENTS + 1)))
         self.sort = self.sorting_algorithm.run(self.sortable)
+
+    def step(self, display):
+
+        self.paused = False
+        self.update(display)
+        self.paused = True

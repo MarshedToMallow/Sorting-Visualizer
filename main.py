@@ -24,6 +24,7 @@ while True:
         elif event.type == pg.KEYUP:
             if event.key == pg.K_SPACE:handler.paused = not handler.paused # Pause/Play
             elif event.key == pg.K_r:handler.reset() # Reset (Start over from new random list)
+            elif event.key == pg.K_RIGHT:handler.step(display)
     
     if not run:break
 

@@ -1,5 +1,4 @@
 import random
-import copy
 
 DEBUG = False
 
@@ -223,6 +222,62 @@ class MergeSort(Sort):
         index = 1
         while index < sortable_length:index <<= 1
         return index >> 1
+
+class InPlaceMergeSort(Sort):
+    """In-Place Merge Sort - Sorts by merging adjacent sorted portions without auxiliary memory.
+    This is done by selecting the smallest from either portion to put as the next element in the resulting portion.
+    """
+    def __init__(self):
+        super().__init__()
+    
+    def run(self, sortable: Sortable, start_index: int = 0, end_index: int = -1):
+        
+        if end_index == -1:end_index: int = len(sortable.data) - 1
+        length = end_index - start_index + 1
+
+        if length == 1:pass
+
+        elif length == 2:
+            yield sortable.read(start_index)
+            yield sortable.read(end_index)
+            yield sortable.compare(start_index, end_index)
+
+            if sortable.data[start_index] > sortable.data[end_index]:
+                yield sortable.swap(start_index, end_index)
+
+        else:
+            split_index: int = (length >> 1) + start_index
+
+            for call in self.run(sortable, start_index, split_index - 1):
+                yield call
+            
+            for call in self.run(sortable, split_index, end_index):
+                yield call
+            
+            left_index = start_index
+            right_index = split_index
+
+            read_right = True
+
+            for _ in range(start_index, end_index + 1):
+
+                sortable.read(left_index)
+                left = sortable.data[left_index]
+
+                if read_right:
+                    yield sortable.read(right_index)
+                    right = sortable.data[right_index]
+                    read_right = False
+                
+                if right < left:
+                    for dx in range(right_index - left_index):
+                        yield sortable.swap(right_index - dx, right_index - dx - 1)
+                    read_right = True
+                    right_index += 1
+                
+                left_index += 1
+
+                if left_index == right_index or right_index > end_index:break
 
 class Quicksort(Sort):
     """Quicksort - Selects a random element and puts all elements on one side if they're smaller and the other side if they're larger.

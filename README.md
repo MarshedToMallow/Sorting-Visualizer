@@ -22,6 +22,7 @@ My own implementation of a sorting algorithm visualizer for various sorting algo
 - [ ] [Insertion Sort (Binary Search)](https://en.wikipedia.org/wiki/Insertion_sort#Variants)
 - [ ] Insertion Sort (Custom - Center Search)
 - [ ] Insertion Sort (Custom - End and Center Search)
+- [x] In-Place Merge Sort
 - [ ] Quicksort (Custom - Average Pivot)
 - [ ] Quicksort (Custom - Triple Pivot)
 - [ ] [Shellsort](https://en.wikipedia.org/wiki/Shellsort)*

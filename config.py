@@ -5,6 +5,7 @@ sort_options = (
     ("insertion", sorts.InsertionSort),
     ("selection", sorts.SelectionSort),
     ("merge", sorts.MergeSort),
+    ("inplacemerge", sorts.InPlaceMergeSort),
     ("quick", sorts.Quicksort),
     ("bogo", sorts.Bogosort)
 )
